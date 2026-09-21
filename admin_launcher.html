@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accès Direct - Administration Lumina Librairie</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #FAF9F6 0%, #F3EFE6 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #FFFFFF;
+      max-width: 480px;
+      width: 100%;
+      padding: 36px 28px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px -15px rgba(217, 119, 6, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      border: 1px solid #EAE6DF;
+    }
+    .icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 30px;
+      box-shadow: 0 10px 20px rgba(217, 119, 6, 0.25);
+    }
+    h1 {
+      font-size: 22px;
+      color: #0F172A;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    p {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94A3B8;
+      margin: 16px 0 8px;
+      text-align: left;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .btn-online-admin {
+      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+    }
+    .btn-online-admin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.4);
+    }
+    .btn-store {
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+    }
+    .btn-store:hover {
+      background: #D1FAE5;
+    }
+    .btn-local {
+      background: #F8FAFC;
+      color: #334155;
+      border: 1px solid #E2E8F0;
+    }
+    .btn-local:hover {
+      background: #F1F5F9;
+    }
+    .tip {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #F1EFE9;
+      font-size: 11px;
+      color: #64748B;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="icon">📚</div>
+    <h1>Lumina Librairie & Papeterie</h1>
+    <p>Accès direct à votre espace d'administration et à votre boutique en ligne.</p>
+
+    <div class="section-title">🌐 Votre Site en Ligne (GitHub Pages)</div>
+    
+    <a href="https://netflixtafou-boop.github.io/LIBRAIRIE/admin.html" target="_blank" class="btn btn-online-admin">
+      🔑 Ouvrir l'Admin en Ligne <span class="badge">Recommandé</span>
+    </a>
+
+    <a href="https://netflixtafou-boop.github.io/LIBRAIRIE/" target="_blank" class="btn btn-store">
+      🏪 Voir la Boutique en Ligne (Clients)
+    </a>
+
+    <div class="section-title">💻 Accès Local (Sur votre PC)</div>
+
+    <a href="file:///C:/Users/silim/.gemini/antigravity/scratch/librairie-app/admin.html" class="btn btn-local">
+      ⚙️ Ouvrir l'Admin en Local sur ce PC
+    </a>
+
+    <div class="tip">
+      🔒 <strong>Mot de passe admin :</strong> <code>admin123</code><br />
+      💡 <strong>Important :</strong> Pour que les commandes passées par vos clients sur le site en ligne arrivent dans votre admin, configurez votre base de données gratuite <strong>Supabase</strong> dans l'onglet <em>Supabase & Réglages</em> de l'administration.
+    </div>
+  </div>
+
+</body>
+</html>
