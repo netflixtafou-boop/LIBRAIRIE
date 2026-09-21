@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina - Librairie & Fournitures Scolaires en Ligne</title>
+  <meta name="description" content="Achetez vos livres, romans et fournitures scolaires en ligne avec paiement en espèces à la livraison. Livraison rapide." />
+
+  <!-- Google Fonts & Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons & Canvas Confetti -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Styles personnalisés -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="min-h-screen flex flex-col bg-[#FAF9F6] text-slate-800 antialiased">
+
+  <!-- ==============================================================================
+       1. EN-TÊTE SUPÉRIEURE / BANNIÈRE D'AVIS
+       ============================================================================== -->
+  <div class="bg-amber-600 text-white text-xs font-semibold py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2 shadow-sm">
+    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+    <span>Livraison rapide à domicile • <strong>Paiement en espèces à la réception de vos livres & fournitures</strong></span>
+    <span class="hidden md:inline">• Service client : +221 77 123 45 67</span>
+  </div>
+
+  <!-- ==============================================================================
+       2. BARRE DE NAVIGATION PRINCIPALE
+       ============================================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Logo & Nom de la Librairie -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition">
+          <i data-lucide="book-open-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-serif block">
+            Lumina <span class="text-amber-600 font-sans font-extrabold text-lg sm:text-xl">Librairie</span>
+          </span>
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block -mt-1">
+            Livres & Fournitures Scolaires
+          </span>
+        </div>
+      </a>
+
+      <!-- Barre de recherche rapide -->
+      <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Rechercher un roman, auteur, cahier, manuel scolaire..." 
+          class="w-full pl-11 pr-4 py-2.5 rounded-full border border-slate-200 bg-slate-50/70 focus:bg-white focus:border-amber-500 focus:ring-4 focus:ring-amber-500/15 text-sm transition outline-none"
+        />
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5"></i>
+      </div>
+
+      <!-- Contact & Assistance Client -->
+      <div class="flex items-center gap-3">
+        <a 
+          href="tel:+221771234567" 
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 transition border border-amber-200 shadow-xs"
+          title="Besoin d'aide ? Appelez le service client"
+        >
+          <i data-lucide="phone-call" class="w-4 h-4 text-amber-600"></i>
+          <span class="hidden sm:inline">Assistance : 77 123 45 67</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Barre de recherche mobile -->
+    <div class="md:hidden px-4 pb-3">
+      <div class="relative w-full">
+        <input 
+          type="text" 
+          placeholder="Rechercher un livre ou une fourniture..." 
+          class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:border-amber-500"
+          oninput="document.getElementById('search-input').value = this.value; document.getElementById('search-input').dispatchEvent(new Event('input'));"
+        />
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==============================================================================
+       3. HERO SECTION LUMINEUSE & ACCUEILLANTE
+       ============================================================================== -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-amber-50/70 via-white to-[#FAF9F6] py-10 sm:py-14 border-b border-amber-100/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 text-amber-800 text-xs font-bold mb-4 shadow-sm">
+          <i data-lucide="book-heart" class="w-4 h-4"></i> Rentrée Scolaire & Littérature Passionnante
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-serif">
+          Tous vos livres et fournitures scolaires, <span class="text-amber-600 italic">livrés chez vous</span>.
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+          Commandez vos romans favoris, manuels scolaires et papeterie en un instant. 
+          <strong>Aucun prépaiement par carte requis</strong> : commandez en ligne et réglez en espèces lors de la livraison.
+        </p>
+
+        <!-- Avantages clés -->
+        <div class="mt-6 flex flex-wrap gap-4 text-xs font-semibold text-slate-700">
+          <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-xs border border-slate-200">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+            <span>Paiement à la livraison garanti</span>
+          </div>
+          <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-xs border border-slate-200">
+            <i data-lucide="phone-call" class="w-4 h-4 text-blue-600"></i>
+            <span>Confirmation par appel téléphonique</span>
+          </div>
+          <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl shadow-xs border border-slate-200">
+            <i data-lucide="package-check" class="w-4 h-4 text-amber-600"></i>
+            <span>Articles neufs et certifiés</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================================
+       4. NAVIGATION DES CATÉGORIES (PILLS FILTRES)
+       ============================================================================== -->
+  <section class="sticky top-20 z-30 bg-[#FAF9F6]/95 backdrop-blur-md py-4 border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="categories-filter-container">
+        <!-- Rempli dynamiquement par JS -->
+        <div class="text-xs text-slate-400">Chargement des catégories...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================================
+       5. CATALOGUE DES ARTICLES & LIVRES
+       ============================================================================== -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- En-tête de section -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Nos Livres & Articles</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Explorez notre catalogue et commandez facilement</p>
+      </div>
+      <div>
+        <span id="products-count-badge" class="text-xs font-bold bg-white text-slate-700 px-3 py-1.5 rounded-full border border-slate-200 shadow-xs">
+          0 articles
+        </span>
+      </div>
+    </div>
+
+    <!-- Grille de Produits -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Rempli dynamiquement par store.js -->
+    </div>
+
+    <!-- État vide (Aucun résultat) -->
+    <div id="empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+      <div class="w-16 h-16 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="book-x" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800">Aucun livre ou article trouvé</h3>
+      <p class="text-sm text-slate-500 max-w-md mx-auto mt-2">
+        Essayez de modifier votre mot-clé de recherche ou sélectionnez une autre catégorie pour explorer le reste du catalogue.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ==============================================================================
+       6. PIED DE PAGE (FOOTER LUMINEUX)
+       ============================================================================== -->
+  <footer class="bg-white border-t border-slate-200 py-12 mt-16 text-slate-600 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-8 h-8 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+            </div>
+            <span class="text-lg font-black text-slate-900 font-serif">Lumina Librairie</span>
+          </div>
+          <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
+            Votre référence pour l'achat de romans, classiques littéraires, bandes dessinées et fournitures scolaires avec service de livraison rapide et paiement en mains propres.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Informations Clés</h4>
+          <ul class="space-y-2 text-xs text-slate-500">
+            <li>• Mode de paiement : Espèces à la livraison</li>
+            <li>• Livraison dans toute la ville & banlieue</li>
+            <li>• Confirmation systématique par appel téléphonique</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3">Horaires & Contact</h4>
+          <ul class="space-y-1.5 text-xs text-slate-500">
+            <li>• Lundi - Samedi : 8h00 - 19h30</li>
+            <li>• Tél : +221 77 123 45 67</li>
+            <li>• WhatsApp : +221 77 123 45 67</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <p>© 2026 Lumina Librairie & Papeterie Scolaire. Tous droits réservés.</p>
+        <p class="flex items-center gap-1">Conçu avec passion pour la culture & l'éducation</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==============================================================================
+       MODAL 1 : DÉTAILS COMPLETS DU PRODUIT / LIVRE
+       ============================================================================== -->
+  <div id="product-detail-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 animate-fade-in flex flex-col md:flex-row overflow-hidden relative">
+      
+      <!-- Bouton fermer -->
+      <button id="close-detail-modal" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 shadow text-slate-600 hover:text-slate-900 flex items-center justify-center transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Image -->
+      <div class="w-full md:w-1/2 bg-slate-100 h-72 md:h-auto relative flex-shrink-0">
+        <img id="detail-image" src="" alt="Livre" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Contenu textuel -->
+      <div class="p-6 md:p-8 flex-1 flex flex-col justify-between">
+        <div>
+          <!-- Badges Catégorie & Pages -->
+          <div class="flex items-center gap-2 mb-3">
+            <span id="detail-category-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200"></span>
+            <span id="detail-pages-badge" class="badge-pages hidden"></span>
+            <span id="detail-stock-badge" class="badge-stock"></span>
+          </div>
+
+          <h3 id="detail-title" class="text-xl md:text-2xl font-black text-slate-900 font-serif leading-snug"></h3>
+          <p id="detail-author" class="text-xs font-bold text-slate-500 mt-1 mb-4"></p>
+
+          <!-- Prix -->
+          <div class="flex items-baseline gap-2 mb-4">
+            <span id="detail-price" class="text-2xl font-extrabold text-amber-700"></span>
+            <span id="detail-old-price" class="text-sm text-slate-400 line-through hidden font-medium"></span>
+          </div>
+
+          <!-- Description complète -->
+          <div class="border-t border-slate-100 pt-4">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Présentation de l'ouvrage</h4>
+            <p id="detail-description" class="text-xs md:text-sm text-slate-600 leading-relaxed max-h-48 overflow-y-auto pr-2"></p>
+          </div>
+        </div>
+
+        <!-- Bouton d'action -->
+        <div class="mt-6 pt-4 border-t border-slate-100">
+          <button id="detail-order-btn" class="w-full py-3 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+            <i data-lucide="truck" class="w-4 h-4"></i>
+            <span>Commander cet article (Paiement à la livraison)</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       MODAL 2 : FORMULAIRE DE COMMANDE (PAIEMENT À LA LIVRAISON)
+       ============================================================================== -->
+  <div id="order-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 animate-fade-in p-6 sm:p-8 relative">
+      
+      <!-- Bouton fermer -->
+      <button id="close-order-modal" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 text-slate-600 hover:text-slate-900 flex items-center justify-center transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- En-tête Modal -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+          <i data-lucide="truck" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900">Passer votre commande</h3>
+          <p class="text-xs text-slate-500">Paiement en espèces uniquement à la livraison</p>
+        </div>
+      </div>
+
+      <!-- Récapitulatif de l'article sélectionné -->
+      <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/70 mb-5 flex items-center justify-between gap-4">
+        <div>
+          <span class="text-xs text-slate-500 font-medium">Article :</span>
+          <div id="order-product-title" class="font-bold text-slate-900 text-sm line-clamp-1"></div>
+          <div id="order-product-price" class="text-xs font-bold text-amber-700 mt-0.5"></div>
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="order-quantity" class="text-xs font-semibold text-slate-600">Qté :</label>
+          <input 
+            type="number" 
+            id="order-quantity" 
+            value="1" 
+            min="1" 
+            max="20" 
+            class="w-16 px-2 py-1 text-center font-bold text-sm rounded-lg border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+          />
+        </div>
+      </div>
+
+      <!-- Formulaire Client -->
+      <form id="order-form" class="space-y-4">
+        
+        <div>
+          <label for="customer_name" class="block text-xs font-bold text-slate-700 mb-1">Nom complet *</label>
+          <input 
+            type="text" 
+            id="customer_name" 
+            required 
+            placeholder="Ex: Mamadou Diop" 
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+          />
+        </div>
+
+        <div>
+          <label for="customer_phone" class="block text-xs font-bold text-slate-700 mb-1">
+            Numéro de téléphone * 
+            <span class="text-[11px] font-normal text-amber-700">(Crucial pour confirmer l'appel)</span>
+          </label>
+          <input 
+            type="tel" 
+            id="customer_phone" 
+            required 
+            placeholder="Ex: +221 77 000 00 00" 
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+          />
+          <span class="text-[11px] text-slate-400 block mt-1">Nous vous appellerons pour vérifier votre présence avant d'envoyer le livreur.</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="customer_city" class="block text-xs font-bold text-slate-700 mb-1">Ville / Commune *</label>
+            <input 
+              type="text" 
+              id="customer_city" 
+              required 
+              placeholder="Ex: Dakar, Thiès, etc." 
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+            />
+          </div>
+          <div>
+            <label for="customer_address" class="block text-xs font-bold text-slate-700 mb-1">Adresse précise *</label>
+            <input 
+              type="text" 
+              id="customer_address" 
+              required 
+              placeholder="Quartier, rue, repère..." 
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="customer_notes" class="block text-xs font-bold text-slate-700 mb-1">Remarques ou instructions (Facultatif)</label>
+          <textarea 
+            id="customer_notes" 
+            rows="2" 
+            placeholder="Ex: Appeler de préférence l'après-midi..." 
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+          ></textarea>
+        </div>
+
+        <!-- Récapitulatif Total & Mode de paiement -->
+        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-slate-500 font-medium">Total à payer à la réception :</div>
+            <div id="order-total-preview" class="text-xl font-black text-amber-700">0 FCFA</div>
+          </div>
+          <div class="text-right">
+            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+              <i data-lucide="banknote" class="w-3.5 h-3.5"></i> Espèces à la livraison
+            </span>
+          </div>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button 
+          type="submit" 
+          id="order-submit-btn" 
+          class="w-full py-3 px-4 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition flex items-center justify-center gap-2"
+        >
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Confirmer la commande (Paiement à la livraison)</span>
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       MODAL 3 : SUCCÈS COMMANDE VALIDÉE
+       ============================================================================== -->
+  <div id="order-success-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-slate-200 animate-fade-in">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="check-circle" class="w-9 h-9"></i>
+      </div>
+      <h3 class="text-2xl font-black text-slate-900 font-serif">Merci pour votre commande !</h3>
+      <p class="text-xs text-slate-500 mt-1">Votre demande a été transmise à notre équipe de livraison.</p>
+      
+      <div class="my-5 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+        <span class="text-xs text-slate-400 uppercase font-semibold">Numéro de commande</span>
+        <div id="success-order-number" class="text-lg font-mono font-extrabold text-amber-700 mt-0.5">CMD-2026-XXX</div>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed mb-6">
+        📞 Notre responsable des expéditions vous appellera dans les plus brefs délais pour valider vos coordonnées avant le départ du livreur.
+      </p>
+
+      <button id="close-success-btn" class="w-full py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition">
+        Continuer mes achats
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/store.js"></script>
+</body>
+</html>
