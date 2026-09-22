@@ -12,8 +12,8 @@ const APP_CONFIG = {
   // ⚡ CONFIGURATION SUPABASE OFFICIELLE
   // Renseignez ici directement votre URL et votre Clé Anon Supabase
   // Elles seront ainsi automatiquement actives en Local ET sur GitHub Pages !
-  SUPABASE_URL: "",       // Ex: "https://votre-projet.supabase.co"
-  SUPABASE_ANON_KEY: "",  // Ex: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  SUPABASE_URL: "https://boczcbnvzctispmmbkxx.supabase.co",       // Ex: "https://votre-projet.supabase.co"
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvY3pjYm52emN0aXNwbW1ia3h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5ODIyNDMsImV4cCI6MjEwNTU1ODI0M30.hEpMb9lQs4d93oqmZkbql6ZufDBWnN-v6IlYZXgKO1o",  // Ex: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
   // Clés LocalStorage pour mémoriser les clés si saisies via l'interface
   STORAGE_KEYS: {
